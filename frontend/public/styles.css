@@ -134,6 +134,28 @@
   opacity: 0.6;
 }
 
+/* Kanban Board */
+.kanban-board {
+  display: flex;
+  gap: var(--spacing-lg);
+  overflow-x: auto;
+  padding: var(--spacing-md);
+  background: var(--neutral-light);
+  border-radius: var(--radius-lg);
+}
+
+.kanban-column {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  display: flex;
+  flex: 1 1 250px;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+
+
 /* Cards */
 .card {
   background: var(--white);
@@ -208,6 +230,7 @@ input[type="password"],
 input[type="number"],
 textarea,
 select {
+  box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-md);
   border: 1px solid #E0E0E0;

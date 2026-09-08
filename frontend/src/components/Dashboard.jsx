@@ -1,4 +1,6 @@
 import {useState, useEffect} from 'react';
+import Card from './Card';
+import Input from './Input';
 
 function Dashboard() {
     const [message, setMessage] = useState('');
@@ -34,6 +36,36 @@ function Dashboard() {
                 </div>
             )}
             {message && <p>{message}</p>}
+
+            <div className= "kanban-board">
+                <div className="kanban-column">
+                    <h2>Unassigned</h2>
+                    <Input status="unassigned" />
+                    <Card />
+                    <Card />
+                </div>
+
+                <div className="kanban-column">
+                    <h2>To Do</h2>
+                    <Input status="todo" />
+                    <Card />
+                    <Card />
+                </div>
+
+                <div className="kanban-column">
+                    <h2>Doing</h2>
+                    <Input status="doing" />
+                    <Card />
+                    <Card />
+                </div>
+
+                <div className="kanban-column">
+                    <h2>Done</h2>
+                    <Input status="done" />
+                    <Card />
+                    <Card />
+                </div>
+            </div>
         </div>
     );
 }
