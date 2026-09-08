@@ -27,12 +27,14 @@ function Login() {
       // console.log('HTTP Status:', response.status); 
       const data = await response.json();
       // console.log('Backend returned data:', data);
+      const userId = data.userId; // Assuming the backend returns the user ID in the response
+      localStorage.setItem('userId', userId); // Store the user ID in local storage
 
       if (response.ok) {
         setUsername('');
         setPassword('');
         
-        navigate('/', { replace: true });
+        navigate(`/dashboard/${userId}`, { replace: true });
 
       } else {
         setMessage(data.error || 'Login failed');
