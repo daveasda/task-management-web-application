@@ -14,7 +14,7 @@ export const login = async (req, res) => {
       const storedPassword = account.password;
 
       if (password === storedPassword) {
-        return res.status(200).json({ message: "Login successful" });
+        return res.status(200).json({ message: "Login successful", userId: account.id });
       } else {
         return res.status(401).json({ error: "Invalid password" });
       }
@@ -53,6 +53,31 @@ export const register = async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Server error: ' + err.message });
   }
-    
 }
 
+ export const dashboard = async (req, res) => {
+
+    const {userId} = req.params;
+    // console.log('Received user ID:', userId); 
+    // Basic check to ensure an ID was provided
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    } 
+
+    try{
+      const result = await db.query("SELECT * FROM account where id = $1", [userId]);
+      if(result.rows.length > 0){
+        const user = result.rows[0];
+        // console.log('Fetched user data:', user);
+        res.status(200).json({ user });
+      } else {
+        res.status(404).json({ error: "User not found" });
+      }
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: 'Server error: ' + err.message });
+    }
+    
+
+}

@@ -29,6 +29,9 @@ function Register() {
       });
 
       const data = await response.json();
+      console.log('Backend returned data:', data);
+      // Store user ID
+        localStorage.setItem('userId', data.user.id);
       
       if (response.ok) {
         setMessage('Registration successful!');
@@ -36,7 +39,7 @@ function Register() {
         setPassword('');
         setEmail('');
         setUserType('');
-        navigate('/', { replace: true });
+        navigate(`/dashboard/${data.user.id}`, { replace: true });
         
       } else {
         setMessage((data.error));
