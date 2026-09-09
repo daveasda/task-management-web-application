@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-function Input({status}) {
+function Input({status, onTaskCreated }) {
 
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
@@ -13,15 +13,41 @@ function Input({status}) {
         const task ={
             title: taskTitle,
             description: taskDescription,
-            status: {status},
+            status: status,
             created_by: userId,
             assigned_to: userId,
             created_at: new Date(),        
         }
 
-        console.log(task);
+        // console.log(task);
 
+        try{
+            const response = await fetch('http://localhost:3000/api/task/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(task)
+            });
 
+            const data = await response.json();
+            // console.log("This is the response data :", data);
+            localStorage.setItem('taskId', data.task.id);
+
+            // const newTaskId = localStorage.getItem('taskId');
+            // console.log("Task id:", newTaskId);
+
+            if (response.ok) {
+                // console.log('Task created successfully:', data);
+                setTaskTitle('');
+                setTaskDescription('');
+                onTaskCreated(data.task);
+            }
+
+            
+        } catch (error) {
+            console.error('Error creating task:', error);
+        }
     } 
 
         return (

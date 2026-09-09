@@ -14,7 +14,7 @@ export const login = async (req, res) => {
       const storedPassword = account.password;
 
       if (password === storedPassword) {
-        return res.status(200).json({ message: "Login successful", userId: account.id });
+        return res.status(200).json({ message: "Login successful", userId: account.id, userType: account.user_type});
       } else {
         return res.status(401).json({ error: "Invalid password" });
       }
@@ -78,6 +78,24 @@ export const register = async (req, res) => {
         console.error(err);
         res.status(500).json({ error: 'Server error: ' + err.message });
     }
-    
+
+}
+
+export const getUsers = async (req, res) => {
+  const userType ='normal';
+
+    try {
+        const result = await db.query(
+            'SELECT id,username FROM account WHERE user_type = $1 ORDER BY created_at ASC',
+            [userType]
+        );
+        res.status(200).json({
+            users: result.rows
+        });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error'});
+    }
 
 }

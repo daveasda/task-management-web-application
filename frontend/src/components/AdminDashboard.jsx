@@ -2,11 +2,14 @@ import {useState, useEffect} from 'react';
 import Card from './Card';
 import Input from './Input';
 
-function Dashboard() {
+function AdminDashboard() {
     const [message, setMessage] = useState('');
-    const [user, setUser] = useState(null);
+    const [admin, setAdmin] = useState(null);
+    const [users, setUsers] = useState([]);
+    const [selectedUserId, setSelectedUserId] = useState('');
     const [tasks, setTasks] = useState([]);
-    const [draggedTask, setDraggedTask] = useState(null);  
+    const [draggedTask, setDraggedTask] = useState(null);
+
 
     const userId = localStorage.getItem('userId')
 
@@ -15,6 +18,23 @@ function Dashboard() {
         setTasks(updatedTasks);
     };
     
+    const fetchNormalUsers = async () => {
+        const response = await fetch(
+            'http://localhost:3000/api/account/users'
+        );
+
+        const data = await response.json();
+
+        setUsers(data.users);
+    };
+
+    const fetchTasks = async (selectedId) => {
+            const response = await fetch(`http://localhost:3000/api/task/user/${selectedId}`);
+            const data = await response.json();
+
+            setTasks(data.task);
+        };
+
     const handleDrop = async (newStatus) => {
 
         if (!draggedTask) {
@@ -56,52 +76,69 @@ function Dashboard() {
         } catch (error) {
             console.error(error);
         }
-    };
+    };    
 
-    useEffect(() => {
-     
         
-        const fetchUser = async () => {
+    useEffect(() => {     
+
+        const fetchAdmin = async () => {
             const response = await fetch(`http://localhost:3000/api/account/dashboard/${userId}`);
             const data = await response.json();
-            setUser(data.user);
+            setAdmin(data.user);
             // console.log('Fetched user data:', data.user);
         };
-
-        const fetchTasks = async () => {
-            const response = await fetch(`http://localhost:3000/api/task/user/${userId}`);
-            const data = await response.json();
-
-            setTasks(data.task);
-        };
-
-        fetchUser();
-        fetchTasks();
-        }, [userId]); 
+        
+        fetchAdmin();
+        fetchNormalUsers();
+        }, 
+        [userId]); 
 
     return (
         <div className="bg-teal-light">
-            <h1 className="text-primary">Dashboard</h1>
+            <h1 className="text-primary">Admin Dashboard</h1>
             <p className="text-secondary">Welcome to the Dashboard!</p>
             <p> Here are your details:</p>
-            {user && (
+            {admin && (
                 <div>
-                    <p>Username: {user.username}</p>
-                    <p>Email: {user.email}</p>
-                    <p>User Type: {user.user_type}</p>
-                    <p>Created Time: {user.created_at}</p>
+                    <p>Username: {admin.username}</p>
+                    <p>Email: {admin.email}</p>
+                    <p>User Type: {admin.user_type}</p>
+                    <p>Created Time: {admin.created_at}</p>
                 </div>
             )}
             {message && <p>{message}</p>}
 
+            <div>
+                <label className="text-secondary">Choose a user: </label>
+                <select 
+                    value={selectedUserId} 
+                    onChange={(e) => {
+                        const selectedId = e.target.value;
+                        setSelectedUserId(selectedId);
+
+                        if (selectedId) {
+                            fetchTasks(selectedId);
+                        }
+                    }} >
+                    <option value="">-- Select User --</option>
+
+                    {users.map(user => (
+                        <option key={user.id} value={user.id}>
+                            {user.username}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+
             <div className= "kanban-board">
                 <div className="kanban-column">
                     <h2>Unassigned</h2>
-                    <Input status="unassigned" onTaskCreated={handleTaskCreated} />
+                    <Input status="unassigned"/>
                     {tasks
                         .filter(task => task.status === 'unassigned')
                         .map(task => (
-                            <Card key={task.id} task={task} onDragStart = {setDraggedTask}/>
+                            <Card key={task.id} task={task} onDragStart={setDraggedTask} />
                         ))
                     }
                 </div>
@@ -112,7 +149,7 @@ function Dashboard() {
                     {tasks
                         .filter(task => task.status === 'todo')
                         .map(task => (
-                            <Card key={task.id} task={task} onDragStart= {setDraggedTask} />
+                            <Card key={task.id} task={task} onDragStart = {setDraggedTask}/>
                         ))
                     }
                 </div>
@@ -123,12 +160,13 @@ function Dashboard() {
                     {tasks
                         .filter(task => task.status === 'doing')
                         .map(task => (
-                            <Card key={task.id} task={task} onDragStart= {setDraggedTask}/>
+                            <Card key={task.id} task={task} onDragStart = {setDraggedTask} />
                         ))
                     }
                 </div>
 
-                <div className="kanban-column" onDragOver={(e) => e.preventDefault()}  onDrop={() => handleDrop('done')}>
+                <div className="kanban-column" onDragOver={(e) => e.preventDefault()}  onDrop={() => handleDrop('done')} >
+                       
                     <h2>Done</h2>
                     <Input status="done" onTaskCreated={handleTaskCreated} />
                     {tasks
@@ -144,4 +182,4 @@ function Dashboard() {
 }
 
 
-export default Dashboard;
+export default AdminDashboard;

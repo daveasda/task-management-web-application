@@ -5,6 +5,7 @@ import cors from "cors";
 
 import db from "./config/db.js";
 import accountRoutes from "./routes/account.js";
+import taskRoutes from "./routes/task.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/api/account", accountRoutes);
+app.use("/api/task", taskRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

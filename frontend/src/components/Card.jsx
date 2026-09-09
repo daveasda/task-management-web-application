@@ -1,11 +1,13 @@
 import {useState, useEffect} from 'react';
 
-function Card() {
-    
+
+function Card({task, onDragStart}) {
+
+      
     return (
-        <div className="card">
-            <h2>Card Title</h2>
-            <p>Card content goes here.</p>
+        <div className="card" draggable onDragStart = {() => onDragStart(task)}>
+            <h2>{task.title}</h2>
+            <p>{task.description}</p>
         </div>
     );
     
