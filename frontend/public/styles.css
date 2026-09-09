@@ -134,18 +134,23 @@
   opacity: 0.6;
 }
 
+.center-text {
+  text-align: center;
+}
+
+
 /* Kanban Board */
 .kanban-board {
   display: flex;
   gap: var(--spacing-lg);
   overflow-x: auto;
   padding: var(--spacing-md);
-  background: var(--neutral-light);
+  background: var(--white);
   border-radius: var(--radius-lg);
 }
 
 .kanban-column {
-  background: var(--white);
+  background: var(--neutral-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   display: flex;
@@ -275,6 +280,13 @@ select:focus {
   font-weight: 500;
 }
 
+.text-dark-teal {
+  color: var(--teal-dark);
+  font-weight: 500;
+}
+
+
+
 /* Spacing Utilities */
 .mt-xs { margin-top: var(--spacing-xs); }
 .mt-sm { margin-top: var(--spacing-sm); }
@@ -361,9 +373,47 @@ select:focus {
   padding-left: var(--spacing-md);
 }
 
+/* Auth Pages */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: rgba(27, 155, 143, 0.1);
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--white);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-container .btn {
+  width: 100%;
+}
+
 /* Backgrounds */
 .bg-light {
   background: var(--neutral-light);
+}
+
+.bg-white {
+  background: var(--white);
 }
 
 .bg-teal-light {

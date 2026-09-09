@@ -51,7 +51,8 @@ function Register() {
 
   return (
     
-        <div className="bg-teal-light" >
+        <div className="auth-page">
+          <div className="auth-container">
 
             <h1 className="text-primary">Register</h1>
             <form onSubmit={handleSubmit}>
@@ -63,7 +64,7 @@ function Register() {
 
             </form>
             {message && <p>{message}</p>}
-
+          </div>
             
         </div>
     

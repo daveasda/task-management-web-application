@@ -6,8 +6,8 @@ function Card({task, onDragStart}) {
       
     return (
         <div className="card" draggable onDragStart = {() => onDragStart(task)}>
-            <h2>{task.title}</h2>
-            <p>{task.description}</p>
+            <h2 className='text-teal'>{task.title}</h2>
+            <p className='text-secondary'>{task.description}</p>
         </div>
     );
     
