@@ -12,8 +12,10 @@ function Login() {
   const handleSubmit = async (e)=> {
     e.preventDefault();
 
+    console.log("API URL:", import.meta.env.VITE_API_URL);
+
     try {
-      const response = await fetch('http://localhost:3000/api/account/login' , {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/account/login` , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +26,7 @@ function Login() {
         }),
       });
 
-      // console.log('HTTP Status:', response.status); 
+      console.log('HTTP Status:', response.status); 
       const data = await response.json();
       // console.log('Backend returned data:', data);
       const userId = data.userId;

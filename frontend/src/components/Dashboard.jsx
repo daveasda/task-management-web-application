@@ -24,7 +24,7 @@ function Dashboard() {
         try {
 
             const response = await fetch(
-                `http://localhost:3000/api/task/${draggedTask.id}/status`,
+                `${import.meta.env.VITE_API_URL}/api/task/${draggedTask.id}/status`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -62,14 +62,14 @@ function Dashboard() {
      
         
         const fetchUser = async () => {
-            const response = await fetch(`http://localhost:3000/api/account/dashboard/${userId}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/account/dashboard/${userId}`);
             const data = await response.json();
             setUser(data.user);
             // console.log('Fetched user data:', data.user);
         };
 
         const fetchTasks = async () => {
-            const response = await fetch(`http://localhost:3000/api/task/user/${userId}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/user/${userId}`);
             const data = await response.json();
 
             setTasks(data.task);

@@ -22,7 +22,7 @@ function Input({status, onTaskCreated }) {
         // console.log(task);
 
         try{
-            const response = await fetch('http://localhost:3000/api/task/create', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

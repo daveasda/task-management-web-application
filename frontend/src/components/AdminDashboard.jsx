@@ -20,7 +20,7 @@ function AdminDashboard() {
     
     const fetchNormalUsers = async () => {
         const response = await fetch(
-            'http://localhost:3000/api/account/users'
+            `${import.meta.env.VITE_API_URL}/api/account/users`
         );
 
         const data = await response.json();
@@ -29,7 +29,7 @@ function AdminDashboard() {
     };
 
     const fetchTasks = async (selectedId) => {
-            const response = await fetch(`http://localhost:3000/api/task/user/${selectedId}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/user/${selectedId}`);
             const data = await response.json();
 
             setTasks(data.task);
@@ -44,7 +44,7 @@ function AdminDashboard() {
         try {
 
             const response = await fetch(
-                `http://localhost:3000/api/task/${draggedTask.id}/status`,
+                `${import.meta.env.VITE_API_URL}/api/task/${draggedTask.id}/status`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -82,7 +82,7 @@ function AdminDashboard() {
     useEffect(() => {     
 
         const fetchAdmin = async () => {
-            const response = await fetch(`http://localhost:3000/api/account/dashboard/${userId}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/account/dashboard/${userId}`);
             const data = await response.json();
             setAdmin(data.user);
             // console.log('Fetched user data:', data.user);
