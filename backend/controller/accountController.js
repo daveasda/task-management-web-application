@@ -6,6 +6,21 @@ export const login = async (req, res) => {
   const password = req.body.password;
 
   try {
+
+    const dbInfo = await db.query(`
+      SELECT current_database() AS database_name,
+             current_user AS database_user
+    `);
+
+    console.log("Connected DB:", dbInfo.rows[0]);
+    console.log("Login username received:", username);
+
+    const allUsers = await db.query(
+      "SELECT id, username FROM account"
+    );
+
+    console.log("Users visible to backend:", allUsers.rows);
+    
     const result = await db.query("SELECT * FROM account WHERE username = $1", [
       username,
     ]);
