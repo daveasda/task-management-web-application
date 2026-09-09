@@ -95,11 +95,10 @@ function AdminDashboard() {
 
     return (
         <div className="bg-teal-light">
-            <h1 className="text-primary">Admin Dashboard</h1>
-            <p className="text-secondary">Welcome to the Dashboard!</p>
-            <p> Here are your details:</p>
+            <h1 className="text-dark-teal  center-text">ADMIN DASHBOARD</h1>
+            <p className="text-primary center-text">Welcome to the Dashboard!</p>
             {admin && (
-                <div>
+                <div className='text-secondary center-text'>
                     <p>Username: {admin.username}</p>
                     <p>Email: {admin.email}</p>
                     <p>User Type: {admin.user_type}</p>
@@ -109,7 +108,7 @@ function AdminDashboard() {
             {message && <p>{message}</p>}
 
             <div>
-                <label className="text-secondary">Choose a user: </label>
+                
                 <select 
                     value={selectedUserId} 
                     onChange={(e) => {

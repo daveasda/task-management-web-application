@@ -55,7 +55,8 @@ function Login() {
 
   return (
     
-    <div className="bg-teal-light">
+    <div className="auth-page">
+      <div className="auth-container">
         <h1 className="text-primary">Login</h1>
         <form onSubmit={(handleSubmit)}>
           <input className="mb-lg" type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)}  />
@@ -64,6 +65,7 @@ function Login() {
         </form>
 
         {message && <p>{message}</p>}
+      </div>
     </div>
   
   );

@@ -81,15 +81,14 @@ function Dashboard() {
 
     return (
         <div className="bg-teal-light">
-            <h1 className="text-primary">Dashboard</h1>
-            <p className="text-secondary">Welcome to the Dashboard!</p>
-            <p> Here are your details:</p>
+            <h1 className="text-dark-teal  center-text">DASHBOARD</h1>
+            <p className="text-primary center-text">Welcome to the Dashboard!</p>
             {user && (
-                <div>
+                <div className='text-secondary center-text'>
                     <p>Username: {user.username}</p>
                     <p>Email: {user.email}</p>
                     <p>User Type: {user.user_type}</p>
-                    <p>Created Time: {user.created_at}</p>
+                    {<p>Created Time: {user.created_at}</p>}
                 </div>
             )}
             {message && <p>{message}</p>}
