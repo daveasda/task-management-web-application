@@ -31,10 +31,6 @@ Administrators can:
 - Select a user from a dropdown
 - View the selected user's tasks
 
-Dummy admin login details:
-Username:Admin
-Password:admin
-
 Features not created yet:
 - Delete mechanism of tasks
 - Password encryption
